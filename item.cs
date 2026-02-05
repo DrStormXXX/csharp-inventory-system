@@ -33,7 +33,7 @@ namespace myInventorySystem
 
         public string GetDetailedInfo()
         {
-            return $"ID: {Id}\nName: {Name}\nType: {Type}\nValue: {Type}\nValue: R{Value}\nWeight: {Weight}kg\nDescription: {Description}";
+            return $"ID: {Id}\nName: {Name}\nType: {Type}\nValue: R{Value}\nWeight: {Weight}kg\nDescription: {Description}";
         }
     }
 }
