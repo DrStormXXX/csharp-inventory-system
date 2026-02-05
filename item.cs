@@ -28,12 +28,12 @@ namespace myInventorySystem
         //Methods
         public override string ToString()
         {
-            return $"{Name} ({Type}) - Value: {Value}g, Weight: {Weight}kg";
+            return $"{Name} ({Type}) - Value: R{Value}, Weight: {Weight}kg";
         }
 
         public string GetDetailedInfo()
         {
-            return $"ID: {Id}\nName: {Name}\nType: {Type}\nValue: {Type}\nValue: {Value}g\nWeight: {Weight}kg\nDescription: {Description}";
+            return $"ID: {Id}\nName: {Name}\nType: {Type}\nValue: {Type}\nValue: R{Value}\nWeight: {Weight}kg\nDescription: {Description}";
         }
     }
 }
