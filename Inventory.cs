@@ -60,12 +60,12 @@ namespace myInventorySystem
 
         public Item FindItemByName(string name)
         {
-            return items.Find(items => items.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            return items.Find(items => item.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
-        public List<Item> GetAllItems();
+        public List<Item> GetAllItems()
         {
-            return new List< List<Item>(items);//return Copy
+            return new List<Item>(items); //return Copy
         }
 
         public void DisplayAllItems()
