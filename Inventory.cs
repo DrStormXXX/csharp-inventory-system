@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net.ServerSentEvents;
 
 namespace myInventorySystem
@@ -99,6 +100,41 @@ namespace myInventorySystem
             foreach (var item in items)
                 total += item.Value;
             return total;
+        }
+        public List<Item> SortByName(bool ascending = true)
+        {
+            var sorted = new List<Item>(items);
+            sorted.Sort((a,b) => ascending ?
+                a.Name.CompareTo(b.Name) :
+                b.Name.CompareTo(a.Name));
+            return sorted;
+        }
+
+        public List<Item> SortByValue(bool ascending = true)
+        {
+            var sorted = new List<Item>(items);
+            sorted.Sort((a,b) => ascending ?
+                a.Value.CompareTo(b.Value)
+                b.Value.CompareTo(a.Value));
+                return sorted;
+        }
+
+        public List<Item> SortByWeight(bool ascending = true)
+        {
+            var sorted = new List<Item>(items);
+            sorted.Sort((a,b) => ascending ?
+                a.Weight.CompareTo(b.Weight)
+                b.Weight.CompareTo(a.Weight));
+                return sorted;
+        }
+
+        //Using LINQ for more complex sorting
+        public List<Item> SortByTypeThenName()
+        {
+            return items
+                .OrderBy(item => item.Type)
+                .ThenBy(item => item.Name)
+                .ToList();
         }
     }
 }
