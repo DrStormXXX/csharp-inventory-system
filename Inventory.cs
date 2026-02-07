@@ -136,5 +136,21 @@ namespace myInventorySystem
                 .ThenBy(item => item.Name)
                 .ToList();
         }
+
+        public List<Item> FilterbyType(ItemType type)
+        {
+            return items.Where(item => item.Type == type).ToList();
+        }
+
+        public List<Item> FindByValueRange(int min, int max)
+        {
+            return items.Where(item => item.Value >= min && item.Value <= max).ToList();
+        }
+
+        public bool ContainsItem(string name)
+        {
+            return items.Any(item =>
+                item.Name.Contains(name, StringComparison.OrdinalIgnortCase));
+        }
     }
 }
