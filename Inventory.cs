@@ -7,9 +7,10 @@ namespace myInventorySystem
     {
         private List<Item> items;
         private int capacity;
+        private float maxWeight;
         private float currentWeight;
 
-        public Inventory(int capacity = 100)
+        public Inventory(int capacity = 100, float maWeight = 50.0f)
         {
             items = new List<Item>();
             this.capacity = capacity;
@@ -25,12 +26,19 @@ namespace myInventorySystem
         public bool AddItem(Item item) 
         { 
             {
-            //Check weight capacity
-            if (currentWeight + item.Weight > capacity)
+            //Checking limits
+            if (items.Count >= capacity)  // Check item count
             {
-                Console.WriteLine($"Cannot add {item.Name}: Exceeds weight capacity!");
+                Console.WriteLine($"Cannot add {item.Name}: Inventory full!");
                 return false;
             }
+            
+            if (currentWeight + item.Weight > maxWeight)
+            {
+                Console.WriteLine($"Cannot add {item.Name}: Exceeds maximum weight Limit!");
+                return false;
+            }
+
 
             items.Add(item);
             currentWeight += item.Weight;
@@ -50,7 +58,7 @@ namespace myInventorySystem
                 return true;
             }
 
-            Console.WriteLine($"Item with ID {id} not founf.");
+            Console.WriteLine($"Item with ID {id} not found.");
             return false;
         }
         public Item FindItem(int id)
@@ -60,7 +68,7 @@ namespace myInventorySystem
 
         public Item FindItemByName(string name)
         {
-            return items.Find(items => item.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            return items.Find(item => item.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
         public List<Item> GetAllItems()
@@ -76,7 +84,7 @@ namespace myInventorySystem
                 return;
             }
 
-            Console.WriteLine($"\n=== Inventory ({items.Count}/{capacity}kg) ===");
+            Console.WriteLine($"\n=== Inventory ({items.Count} items, {currentWeight}/{capacity}kg) ===");
             foreach (var item in items)
             {
                 Console.WriteLine($"-{item}");
