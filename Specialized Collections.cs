@@ -48,6 +48,17 @@ namespace mySpecializedCollections
             }
         }
 
-        public Item DequeueQuest
+        public Item DequeueQuestItem()
+        {
+            if (questQueue.Count > 0)
+            {
+                var questItem = questQueue.Dequeue();
+                Console.WriteLine($"Dequeued {questItem.Name} from quest queue." );
+                retuen questItem;
+            }
+
+            Console.WriteLine("Quest queue is empty!");
+            return null;
+        }
     }
 }
