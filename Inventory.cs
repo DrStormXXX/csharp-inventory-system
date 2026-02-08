@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net.ServerSentEvents;
+using System.Linq;
 
 namespace myInventorySystem
 {
@@ -11,7 +10,7 @@ namespace myInventorySystem
         private float maxWeight;
         private float currentWeight;
 
-        public Inventory(int capacity = 100, float maWeight = 50.0f)
+        public Inventory(int capacity = 100, float maxWeight = 50.0f)
         {
             items = new List<Item>();
             this.capacity = capacity;
@@ -26,7 +25,7 @@ namespace myInventorySystem
         //Placeholder methods
         public bool AddItem(Item item) 
         { 
-            {
+
             //Checking limits
             if (items.Count >= capacity)  // Check item count
             {
@@ -45,7 +44,7 @@ namespace myInventorySystem
             currentWeight += item.Weight;
             Console.WriteLine($"Added {item.Name} to inventory.");
             return true;
-            }
+            
         }
         public bool RemoveItem(int id)
         {
@@ -85,13 +84,13 @@ namespace myInventorySystem
                 return;
             }
 
-            Console.WriteLine($"\n=== Inventory ({items.Count} items, {currentWeight}/{capacity}kg) ===");
+            Console.WriteLine($"\n=== Inventory ({items.Count} items, {currentWeight}/{maxWeight}kg) ===");
             foreach (var item in items)
             {
                 Console.WriteLine($"-{item}");
             }
-            Console.WriteLine($"Total Weight: {currentWeight}/{capacity}kg");
-            Console.WriteLine($"Total Value: {CalculatedTotalValue()}g");
+            Console.WriteLine($"Total Weight: {currentWeight}/{maxWeight}kg");
+            Console.WriteLine($"Total Value: R{CalculatedTotalValue()}");
         }
 
         private int CalculatedTotalValue()
@@ -114,7 +113,7 @@ namespace myInventorySystem
         {
             var sorted = new List<Item>(items);
             sorted.Sort((a,b) => ascending ?
-                a.Value.CompareTo(b.Value)
+                a.Value.CompareTo(b.Value) :
                 b.Value.CompareTo(a.Value));
                 return sorted;
         }
@@ -123,7 +122,7 @@ namespace myInventorySystem
         {
             var sorted = new List<Item>(items);
             sorted.Sort((a,b) => ascending ?
-                a.Weight.CompareTo(b.Weight)
+                a.Weight.CompareTo(b.Weight) :
                 b.Weight.CompareTo(a.Weight));
                 return sorted;
         }
@@ -150,7 +149,7 @@ namespace myInventorySystem
         public bool ContainsItem(string name)
         {
             return items.Any(item =>
-                item.Name.Contains(name, StringComparison.OrdinalIgnortCase));
+                item.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
