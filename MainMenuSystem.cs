@@ -7,14 +7,14 @@ namespace myMainMenuSystem;
         
     public InventoryManager()
     {
-        inventory = new Inventory(50); // 50 SLOTS capacity (not kg - check Inventory class!)
+        inventory = new Inventory(50.0f); // Default capacity and weight limit
         specializedInventory = new SpecializedInventory();
     }
     
     public void Run()
     {
         Console.WriteLine("=== RPG INVENTORY SYSTEM ===");
-        Console.WriteLine("Created by [Your Name]");
+        Console.WriteLine("Created by N.N.Matshika");
         
         bool exit = false;
         
@@ -69,7 +69,7 @@ namespace myMainMenuSystem;
     {
         Console.WriteLine("\n--- Add New Item ---");
         
-        // 📝 Get item name
+        // 📝 Step 1: Get item name
         Console.Write("Item Name: ");
         string name = Console.ReadLine();
         if (string.IsNullOrWhiteSpace(name))
@@ -78,56 +78,56 @@ namespace myMainMenuSystem;
             return;
         }
         
-        // 📝 Get item type (convert number to enum)
+        // 📝 Step 2: Get item type (convert number to enum)
         ItemType type = ItemType.Weapon; // Default
         Console.WriteLine("Item Type (1-Weapon, 2-Armor, 3-Potion, 4-Material, 5-Quest): ");
         string typeInput = Console.ReadLine();
-        
+            // Convert input to number then to enum with validation
         if (int.TryParse(typeInput, out int typeNum) && typeNum >= 1 && typeNum <= 5)
-        {
+        {                     
             type = (ItemType)(typeNum - 1); // Convert 1→Weapon, 2→Armor, etc.
-        }
+        }                    //(remember enum starts at 0 hence the -1)
         else
         {
             Console.WriteLine("❌ Invalid type! Using default (Weapon).");
         }
         
-        // 📝 Get item value (gold)
-        Console.Write("Item Value (gold): ");
+        // 📝 Step 3: Get item value (rand)
+        Console.Write("Item Value (rand): ");
         string valueInput = Console.ReadLine();
         if (!int.TryParse(valueInput, out int value))
         {
             Console.WriteLine("❌ Invalid value! Using default (10).");
-            value = 10;
+            value = 10; // Default value if input is invalid
         }
         
-        // 📝 Get item weight
+        // 📝 Step 4: Get item weight
         Console.Write("Item Weight (kg): ");
         string weightInput = Console.ReadLine();
         if (!float.TryParse(weightInput, out float weight))
         {
             Console.WriteLine("❌ Invalid weight! Using default (1.0).");
-            weight = 1.0f;
+            weight = 1.0f;// Default weight if input is invalid
         }
         
-        // 📝 Get description
+        // 📝 Step 5: Get description(optional)
         Console.Write("Description (optional): ");
         string description = Console.ReadLine();
         
-        // 🆔 Generate unique ID
-        int id = nextId++;
+        // 🆔 Step 6: Generate unique ID
+        int id = nextId++; // Increment after use to ensure uniqueness
         
-        // 🏗️ Create the new item
+        // 🏗️ Step 7: Create the new item
         Item newItem = new Item(id, name, type, value, weight);
         if (!string.IsNullOrEmpty(description))
         {
-            newItem.Description = description;
+            newItem.Description = description;// Set description if provided
         }
         
-        // 📦 Try to add to inventory
+        // 📦 Step 8: Try to add to inventory
         if (inventory.AddItem(newItem))
         {
-            Console.WriteLine($"✅ Successfully added: {newItem}");
+            Console.WriteLine($"✅ Successfully added: {newItem}");// Show item details on success
         }
         else
         {
@@ -141,7 +141,7 @@ namespace myMainMenuSystem;
     {
         Console.WriteLine("\n--- Remove Item ---");
         
-        if (inventory.ItemCount == 0)
+        if (inventory.ItemCount == 0)// Check if inventory is empty before trying to remove
         {
             Console.WriteLine("📭 Inventory is empty! Nothing to remove.");
             return;
@@ -149,7 +149,7 @@ namespace myMainMenuSystem;
         
         // Show current items for reference
         ViewAllItems();
-        
+        // Ask user how they want to remove
         Console.WriteLine("\nRemove by:");
         Console.WriteLine("1. Enter Item ID");
         Console.WriteLine("2. Select by number");
@@ -203,7 +203,7 @@ namespace myMainMenuSystem;
     private void ViewAllItems()
     {
         Console.WriteLine("\n--- All Items ---");
-        
+        // Check if inventory is empty before trying to display
         if (inventory.ItemCount == 0)
         {
             Console.WriteLine("📭 Inventory is empty!");
@@ -216,7 +216,12 @@ namespace myMainMenuSystem;
         Console.WriteLine("──────────────────────────────────");
         
         // This requires Inventory to expose items - we'll add a method
-        Console.WriteLine("⚠️ Need to implement item listing!");
+        List<Item> allitems = inventory.GetAllItems();// This will return a copy of the items list
+        for (int i = 0; i < allitems.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {allitems[i].ToString()}");
+        }
+        Console.WriteLine("");
         
         // Temporary workaround - we'll use a method that doesn't exist yet
         // inventory.ListAllItems(); // We need to add this to Inventory class
