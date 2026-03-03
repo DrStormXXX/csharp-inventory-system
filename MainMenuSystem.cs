@@ -215,16 +215,15 @@ namespace myMainMenuSystem;
         Console.WriteLine($"📊 Total Items: {inventory.ItemCount} | Total Weight: {inventory.CurrentWeight}/{inventory.Capacity}kg");
         Console.WriteLine("──────────────────────────────────");
         
-        // This requires Inventory to expose items - we'll add a method
-        List<Item> allitems = inventory.GetAllItems();// This will return a copy of the items list
-        for (int i = 0; i < allitems.Count; i++)
-        {
-            Console.WriteLine($"{i + 1}. {allitems[i].ToString()}");
-        }
-        Console.WriteLine("");
+        // ⚠️ NEED TO IMPLEMENT: Actually listing the items
+        // This would be something like:
+        // List<Item> allItems = inventory.GetItems();
+        // for (int i = 0; i < allItems.Count; i++)
+        // {
+        //     Console.WriteLine($"[{i+1}] {allItems[i].ToString()}");
+        // }
         
-        // Temporary workaround - we'll use a method that doesn't exist yet
-        // inventory.ListAllItems(); // We need to add this to Inventory class
+        Console.WriteLine("⚠️ Need to implement item listing!");
     }
     
     // 🔠 METHOD 4: SORT ITEMS - Sort by different criteria
