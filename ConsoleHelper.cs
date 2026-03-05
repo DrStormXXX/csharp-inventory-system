@@ -10,6 +10,13 @@ namespace myConsoleHelper
             Console.WriteLine($"Success: {message}");
             Console.ResetColor();
         }
+
+        public static void PrintError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Error: {message}");
+            Console.ResetColor();
+        }
         
         
     }
