@@ -18,9 +18,13 @@ namespace myConsoleHelper
             Console.ResetColor();
         }
 
-        
-
-        
+        public static void PrintWarning(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Warning: {message}");
+            Console.ResetColor();
+        }
+  
         public static string ReadString(string prompt, string defaultValue = "")
         {
             Console.Write($"{prompt}: ");
