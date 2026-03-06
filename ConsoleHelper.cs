@@ -24,7 +24,13 @@ namespace myConsoleHelper
             Console.WriteLine($"Warning: {message}");
             Console.ResetColor();
         }
-  
+
+        public static void PrintHeader(string title)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"=== {title.ToUpper()} ===");
+            Console.ResetColor();
+        }
         public static string ReadString(string prompt, string defaultValue = "")
         {
             Console.Write($"{prompt}: ");
