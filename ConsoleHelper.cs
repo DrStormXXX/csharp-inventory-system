@@ -17,7 +17,15 @@ namespace myConsoleHelper
             Console.WriteLine($"Error: {message}");
             Console.ResetColor();
         }
+
         
+
         
+        public static string ReadString(string prompt, string defaultValue = "")
+        {
+            Console.Write($"{prompt}: ");
+            string input = Console.ReadLine();
+            return string.IsNullOrWhiteSpace(input) ? defaultValue : input;
+        }
     }
 }
